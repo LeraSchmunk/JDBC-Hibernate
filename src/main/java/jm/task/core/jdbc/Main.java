@@ -17,7 +17,6 @@ public class Main {
         UserService users = new UserServiceImpl();
         users.createUsersTable();
         System.out.println("-------------------");
-
         users.saveUser("Alex", "Ivanov", (byte) 20);
         users.saveUser("Ivan", "Petrov", (byte) 8);
         users.saveUser("Petr", "Konstantinov", (byte) 90);
@@ -28,10 +27,10 @@ public class Main {
         users.removeUserById(3);
         System.out.println("-------------------");
         users.getAllUsers();
-//        System.out.println("-------------------");
-//        users.cleanUsersTable();
-//        System.out.println("-------------------");
-//        users.dropUsersTable();
+        System.out.println("-------------------");
+        users.cleanUsersTable();
+        System.out.println("-------------------");
+        users.dropUsersTable();
 
     }
 }

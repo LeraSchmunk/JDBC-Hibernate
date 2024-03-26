@@ -52,7 +52,7 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             transaction.commit();
         } catch (HibernateException e) {
-            System.out.println("Drop error");
+            throw new RuntimeException(e);
         }
     }
 
@@ -64,7 +64,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(user);
             session.getTransaction().commit();
             System.out.println("Добавлен пользователь " + user.getName() + " " + user.getLastName());
-        }
+        }catch (HibernateException e) {
+            throw new RuntimeException(e);
+    }
     }
 
     @Override
@@ -75,7 +77,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.delete(user);
             session.getTransaction().commit();
             System.out.println("Удаление пользователя с id " + id);
-        }
+        }catch (HibernateException e) {
+            throw new RuntimeException(e);
+    }
     }
 
     @Override
@@ -83,8 +87,9 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             System.out.println("Все пользователи: ");
             return session.createQuery("FROM User", User.class).list();
-        }
-    }
+        }catch (HibernateException e) {
+            throw new RuntimeException(e);
+    }}
 
     @Override
     public void cleanUsersTable() {
@@ -96,10 +101,9 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             transaction.commit();
         } catch (HibernateException e) {
-            System.out.println("Truncation error");
+            throw new RuntimeException(e);
         }
     }
-
 }
 
 
